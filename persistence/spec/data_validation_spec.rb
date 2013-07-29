@@ -28,19 +28,11 @@ class SomeClass  < CommandPost::Persistence
   end
 end
 
-
-
-
-def get_instance
-  some_class = SomeClass.new 
-  SomeClass.new 
-end
-
-
 describe CommandPost::DataValidation do 
+  
+   let(:obj) { SomeClass.new }
 
    it 'should be valid if all required fields are present and types are correct' do
-      obj = get_instance
       obj.first_name = 'Joe'
       obj.last_name = 'Schmoe'
       obj.birth_date = Date.new(1980,1,1)
@@ -49,7 +41,6 @@ describe CommandPost::DataValidation do
     end
 
     it 'should not be valid if missing required fields ' do
-      obj = get_instance
       obj.first_name = 'Joe'
       obj.last_name = 'Schmoe'
       obj.birth_date = Date.new(1980,1,1)
@@ -58,20 +49,12 @@ describe CommandPost::DataValidation do
     end
 
     it 'should not be valid if a type is incorrect ' do
-      obj = get_instance
       obj.first_name = 'Joe'
       obj.last_name = 'Schmoe'
       obj.birth_date = Date.new(1980,1,1)
       obj.favorite_number = "3"  # <---- should be Fixnum      
       obj.valid?.must_equal false
     end
-
-
-
-
-
-
-
 
 end
 
